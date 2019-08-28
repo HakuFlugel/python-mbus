@@ -2,6 +2,10 @@
 Python bindings for rSCADA libmbus.
 """
 
+from xmljson import parker as p
+from xml.etree.ElementTree import fromstring
+from json import dumps
+
 from ctypes import cdll, cast, c_char_p
 from ctypes.util import find_library
 
@@ -178,6 +182,15 @@ class MBus:
         ret_val = cast(xml_result, c_char_p).value.decode('ISO-8859-1')
         self._libc.free(xml_result)
 
+        return ret_val
+
+    def recv_data_object(self):
+        frame = self.recv_frame()
+        data_frame = self.frame_data_parse(frame)
+        xml_data = self.frame_data_xml(data_frame)
+
+        ret_val = dumps(p.data(fromstring(xml_data)))
+        
         return ret_val
 
     def frame_data_free(self, frame_data):
