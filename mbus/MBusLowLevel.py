@@ -196,8 +196,8 @@ class MBusLib(object):
         self.init                           = lib.mbus_init
         self.init.restype                   = c_int
 
-        self.get_current_version            = lib.mbus_get_current_version
-        self.get_current_version.restype    = c_char_p
+        #self.get_current_version            = lib.mbus_get_current_version
+        #self.get_current_version.restype    = c_char_p
 
         # mbus-protocol-aux.h
         self.context_tcp                    = lib.mbus_context_tcp
